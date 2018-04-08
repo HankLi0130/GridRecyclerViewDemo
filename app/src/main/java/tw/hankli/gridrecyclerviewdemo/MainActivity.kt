@@ -11,6 +11,7 @@ import tw.hankli.gridrecyclerviewdemo.models.Item
 
 class MainActivity : AppCompatActivity() {
 
+    private val itemSize = 100
     private val spanCount = 4
     private val headerSpanCount = spanCount
     private val bodySpanCount = 1
@@ -20,7 +21,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
 
     // Data
-    private val items = listOf(
+    private var items = listOf(
             Header("Title1"),
 
             Body(R.mipmap.ic_launcher_round, "Item1"),
@@ -67,10 +68,14 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        setHugeItems()
+
         adapter = ItemAdapter()
         adapter.items = this.items
 
         layoutManager = GridLayoutManager(this, spanCount)
+
+        // Header設定Span Count
         layoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
 
             override fun getSpanSize(position: Int): Int {
@@ -86,5 +91,18 @@ class MainActivity : AppCompatActivity() {
         recyclerView.setHasFixedSize(true)
         recyclerView.layoutManager = layoutManager
         recyclerView.adapter = adapter
+    }
+
+    private fun setHugeItems() {
+
+        items = Array<Item>(itemSize) { index ->
+
+            if (index % 5 == 0) {
+                Header("Title")
+            } else {
+                Body(R.mipmap.ic_launcher_round, "Item")
+            }
+
+        }.asList()
     }
 }
