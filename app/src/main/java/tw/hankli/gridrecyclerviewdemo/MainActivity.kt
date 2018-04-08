@@ -11,7 +11,7 @@ import tw.hankli.gridrecyclerviewdemo.models.Item
 
 class MainActivity : AppCompatActivity() {
 
-    private val itemSize = 100
+    private val itemSize = 1000
     private val spanCount = 4
     private val headerSpanCount = spanCount
     private val bodySpanCount = 1
@@ -68,6 +68,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        // 設定大量資料
         setHugeItems()
 
         adapter = ItemAdapter()
@@ -95,7 +96,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun setHugeItems() {
 
-        items = Array<Item>(itemSize) { index ->
+        items = Array(itemSize) { index ->
 
             if (index % 5 == 0) {
                 Header("Title")
